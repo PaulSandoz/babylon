@@ -1,5 +1,6 @@
 package oracle.code.onnx;
 
+import java.nio.FloatBuffer;
 import jdk.incubator.code.CodeReflection;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,10 @@ public class SimpleTest {
 
     @Test
     public void test() {
+        assertEquals(add(new Tensor(1, 2, 3), new Tensor(6, 5, 4)), 7, 7, 7);
+    }
 
+    static void assertEquals(Tensor actual, float... expected) {
+        RuntimeTest.assertEqualData(FloatBuffer.wrap(expected), actual.rtTensor.asByteBuffer().asFloatBuffer());
     }
 }
